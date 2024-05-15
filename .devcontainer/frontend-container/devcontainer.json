@@ -1,15 +1,15 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/go-postgres
 {
-	"name": "Go & PostgreSQL",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
+	"name": "Node.js",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "frontend",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {"ghcr.io/devcontainers/features/go:1": {}}
 
 	// For running other SQL playground on host
-	"forwardPorts": [5432],
+	// "forwardPorts": [5432],
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -17,7 +17,7 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"golang.Go"
+				
 			]
 		}
 	}

@@ -4,16 +4,29 @@ volumes:
   postgres-data:
 
 services:
-  app:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile_frontend
+    env_file: 
+      - .env
+
+    volumes:
+      - ..:/workspaces/FantasyForum:cached
+      
+    command: sleep infinity
+
+
+  backend:
     build: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_backend
     env_file:
         # Ensure that the variables in .env match the same variables in devcontainer.json
         - .env
 
     volumes:
-      - ../..:/workspaces:cached
+      - ..:/workspaces/FantasyForum:cached
       - /home/sqa/Desktop/Docker/go-pkg/:/go/pkg/mod
       
     # Overrides default command so things don't shut down after the process ends.
