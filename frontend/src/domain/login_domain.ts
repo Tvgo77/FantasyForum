@@ -1,23 +1,23 @@
 import { z } from 'zod';
 
-export type loginUIform = {
+export type LoginUIform = {
     email: string
     password: string
 }
 
-export type loginRequest = {
+export type LoginRequest = {
     email: string
     password: string
 }
 
-export type loginResponse = {
+export type LoginResponse = {
     token: string
 }
 
-export const loginRespSchema = z.object({
+export const LoginRespSchema = z.object({
     token: z.string(),
 });
 
-export interface loginUsecase {
-    storeToken(token: string): void
+export interface LoginUsecase {
+    storeToken: (token: string) => void
 }

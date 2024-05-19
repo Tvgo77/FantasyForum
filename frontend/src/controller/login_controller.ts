@@ -3,13 +3,19 @@ import { errorBadResponse, fetchWithRetry } from '@/helper';
 import { NewLoginUsecase } from '@/usecase';
 import { error } from 'console';
 
+type loginController = {
+    loginUsecase: domain.LoginUsecase
+    login: (formData: domain.LoginUIform) => Promise<boolean>
+} 
 
+export function NewLoginController(lu: domain.LoginUsecase): loginController {
+    const lc: loginController = {loginUsecase: lu, login: login}
+    return lc
+}
 
-export async function login(formData: domain.loginUIform) {
-    const lu: domain.loginUsecase = NewLoginUsecase()
-
+async function login(this: loginController, formData: domain.LoginUIform): Promise<boolean> {
     // Send login http request
-    const request: domain.loginRequest = {email: formData.email, password: formData.password}
+    const request: domain.LoginRequest = {email: formData.email, password: formData.password}
     let response: Response 
     let data
 
@@ -26,21 +32,22 @@ export async function login(formData: domain.loginUIform) {
         data = await response.json()
     } catch (error) {
         alert((error as Error).message)
-        return
+        return false
     }
 
     // Handle response
     // Check Response format
 
     if (response.status != 200) {
-        try{domain.errorRespSchema.parse(data)} catch (e) {alert(errorBadResponse); return}
+        try{domain.errorRespSchema.parse(data)} catch (e) {alert(errorBadResponse); return false}
         alert((data as domain.errorResponse).message)
-        return
+        return false
     }
 
-    try{domain.loginRespSchema.parse(data)} catch (e) {alert(errorBadResponse); return}
-    const token: string = (data as domain.loginResponse).token
+    try{domain.LoginRespSchema.parse(data)} catch (e) {alert(errorBadResponse); return false}
+    const token: string = (data as domain.LoginResponse).token
 
     // Store token
-    lu.storeToken(token)
+    this.loginUsecase.storeToken(token)
+    return true
 }

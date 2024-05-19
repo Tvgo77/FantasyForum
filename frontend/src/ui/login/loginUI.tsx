@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle';
 
-import { login } from '@/controller';
+import { NewLoginController } from '@/controller';
+import { NewLoginUsecase } from '@/usecase';
 import * as domain from '@/domain';
 
 export const LoginUI = () => {
@@ -17,15 +18,17 @@ export const LoginUI = () => {
     event.preventDefault()
     setLoading(true)
 
-    const formData: domain.loginUIform = { email, password }
-
+    const formData: domain.LoginUIform = { email, password }
+    const lu = NewLoginUsecase()
+    const lc = NewLoginController(lu)
+    
     try {
-      await login(formData)  // Controller function
+      await lc.login(formData)  // Controller function
     } catch (error) {
       alert(error)
     }
 
-    setLoading(true)
+    setLoading(false)
   }
 
   return (

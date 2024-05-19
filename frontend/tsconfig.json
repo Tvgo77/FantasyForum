@@ -21,7 +21,8 @@
         "name": "next"
       },
       {
-        "transform": "typia/lib/transform"
+        "transform": "ts-auto-mock/transformer",
+        "cacheBetweenTests": false
       }
     ],
     "paths": {

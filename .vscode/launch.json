@@ -8,6 +8,23 @@
         "url": "http://localhost:3000",
         "webRoot": "${workspaceFolder}/frontend"
       },
+
+      
+
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug Vitest",
+        "autoAttachChildProcesses": true,
+        "cwd": "${workspaceRoot}/frontend",
+        "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+        "program": "${workspaceRoot}/frontend/node_modules/vitest/vitest.mjs",
+        "args": ["run", "${file}"],
+        "smartStep": true,
+        "console": "integratedTerminal"
+      },
+        
+      
       
       {
         "name": "Golang debug",
