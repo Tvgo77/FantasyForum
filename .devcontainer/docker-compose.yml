@@ -16,6 +16,8 @@ services:
       
     command: sleep infinity
 
+    network_mode: service:db
+
 
   backend:
     build: 

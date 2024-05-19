@@ -3,11 +3,14 @@ package main
 import (
 	_ "database/sql"
 	"go-backend/database"
+	"go-backend/domain"
+	"go-backend/middleware"
 	"go-backend/router"
 	"go-backend/setup"
-	"go-backend/domain"
 	"log"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -37,8 +40,20 @@ func main() {
 	
 	/* Setup router */
 	ginEngine := gin.Default()
+
+	corsMiddleware := cors.New(cors.Config{
+        AllowAllOrigins: true,
+        AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"},
+		AllowHeaders:     []string{"*"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+    })
+	ginEngine.Use(corsMiddleware)
+
 	publicRouter := ginEngine.Group("")
 	privateRouter := ginEngine.Group("")
+	jwtMiddleware := middleware.NewJWTmiddleware(env)
+	privateRouter.Use(jwtMiddleware.GinHandler)
 
 	router.SignupRouterSetup(env, db, publicRouter)
 	router.LoginRouterSetup(env, db, publicRouter)
