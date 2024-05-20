@@ -20,10 +20,6 @@
       {
         "name": "next"
       },
-      {
-        "transform": "ts-auto-mock/transformer",
-        "cacheBetweenTests": false
-      }
     ],
     "paths": {
       "@/*": [
