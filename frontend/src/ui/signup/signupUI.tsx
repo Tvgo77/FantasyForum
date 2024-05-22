@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle';
 
-import { NewLoginController } from '@/controller';
+import { NewLoginController, NewSignupController } from '@/controller';
 import { NewLoginUsecase } from '@/usecase';
 import * as domain from '@/domain';
 import { set } from 'zod';
+import { NewSignupUsecase } from '@/usecase/signup_usecase';
 
 export const SignupUI = () => {
   const [email, setEmail] = useState("")
@@ -20,7 +21,17 @@ export const SignupUI = () => {
   async function handleSubmit(event: React.FormEvent): Promise<void> {
     event.preventDefault()
     setLoading(true)
-    //
+
+    const formData: domain.SignupUIform = {email: email, password: password}
+    const su = NewSignupUsecase()
+    const sc = NewSignupController(su)
+
+    try {
+      await sc.Signup(formData)  // Controller function
+    } catch (error) {
+      alert(error)
+    }
+    
 
     setLoading(false)
   }
