@@ -1,15 +1,14 @@
 import * as domain from '@/domain';
 
-let loginUsecase = {
+class loginUsecase {
     //env: undefined,
-    storeToken: storeToken 
+    public StoreToken(token: string) {
+        localStorage.setItem("token", token)
+    } 
 }
 
 export function NewLoginUsecase(/*env: undefined*/): domain.LoginUsecase {
     //loginUsecase.env = env
-    return loginUsecase
-}
-
-function storeToken(token: string) {
-    localStorage.setItem("token", token)
+    const lu: loginUsecase = new loginUsecase()
+    return lu
 }

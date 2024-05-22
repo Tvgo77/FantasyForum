@@ -23,7 +23,7 @@ export const LoginUI = () => {
     const lc = NewLoginController(lu)
     
     try {
-      await lc.login(formData)  // Controller function
+      await lc.Login(formData)  // Controller function
     } catch (error) {
       alert(error)
     }

@@ -19,5 +19,5 @@ export const LoginRespSchema = z.object({
 });
 
 export interface LoginUsecase {
-    storeToken: (token: string) => void
+    StoreToken: (token: string) => void
 }
