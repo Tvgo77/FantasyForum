@@ -34,7 +34,7 @@ export const LoginUI = () => {
   return (
     <>
       <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-        Launch demo modal
+        Login
       </button>
 
       <div className="modal fade" id="loginModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -69,7 +69,7 @@ export const LoginUI = () => {
                   <label className="form-check-label" htmlFor="exampleCheck1">Remeber me</label>
                 </div>
                 <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Login</button>
-                <button type="button" className="btn btn-outline-primary mx-4">Signup</button>
+                {/* <button type="button" className="btn btn-outline-primary mx-4">Signup</button> */}
               </form>
             </div>
             {/* <div className="modal-footer">
