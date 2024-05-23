@@ -2,7 +2,7 @@ import * as domain from '@/domain';
 
 class signupUsecase {
     public StoreToken(token: string) {
-        
+        localStorage.setItem("token", token)
     }
 }
 
