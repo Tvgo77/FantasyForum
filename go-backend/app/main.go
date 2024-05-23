@@ -27,15 +27,15 @@ func main() {
 		return
 	}
 
-	/* Run database migration if set in env */
-	if env.RunMigration {
-		db.AutoMigrate(&domain.User{})
-	}
-
 	if env.TestMode {
 		tx := db.Begin()
 		defer tx.Rollback()
 		db = database.NewDatabaseFromExist(tx)
+	}
+
+	/* Run database migration if set in env */
+	if env.RunMigration {
+		db.AutoMigrate(&domain.User{})
 	}
 	
 	/* Setup router */

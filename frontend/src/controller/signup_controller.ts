@@ -15,7 +15,7 @@ class signupController {
         let data: any
         
         try {
-            resp = await fetchWithRetry("http://localhost:8080/login", {
+            resp = await fetchWithRetry("http://localhost:8080/signup", {
                 method: "POST",
                 mode: "cors",
                 headers: {
