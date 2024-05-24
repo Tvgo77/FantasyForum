@@ -1,9 +1,11 @@
 import * as domain from '@/domain';
+import Cookies from 'js-cookie'
 
 class loginUsecase {
     //env: undefined,
     public StoreToken(token: string) {
-        localStorage.setItem("token", token)
+        // localStorage.setItem("token", token)
+        Cookies.set("token", token)
     } 
 }
 
