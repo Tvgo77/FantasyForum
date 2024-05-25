@@ -1,3 +1,5 @@
 export * from "./login_domain"
 export * from "./signup_domain"
 export * from "./error_domain"
+export * from "./profile_domain"
+export * from "./user_domain"
