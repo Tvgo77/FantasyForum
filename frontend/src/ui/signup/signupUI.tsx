@@ -4,11 +4,10 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle';
 
-import { NewLoginController, NewSignupController } from '@/controller';
-import { NewLoginUsecase } from '@/usecase';
-import * as domain from '@/domain';
-import { set } from 'zod';
+import { NewSignupController } from '@/controller';
 import { NewSignupUsecase } from '@/usecase/signup_usecase';
+import * as domain from '@/domain';
+
 
 export const SignupUI = () => {
   const [email, setEmail] = useState("")
@@ -58,11 +57,11 @@ export const SignupUI = () => {
               <button type="button" className="btn-close position-absolute top-0 mt-1 end-0 me-1" data-bs-dismiss="modal" aria-label="Close" />
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+                  <label htmlFor="SignupInputEmail1" className="form-label">Email address</label>
                   <input
                     type="email"
                     className="form-control"
-                    id="exampleInputEmail1"
+                    id="SignupInputEmail1"
                     aria-describedby="emailHelp"
                     onChange={(e) => {setEmail(e.target.value) }}
                     required
@@ -70,11 +69,11 @@ export const SignupUI = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                  <label htmlFor="SignupInputPassword1" className="form-label">Password</label>
                   <input
                     type="password"
                     className="form-control"
-                    id="exampleInputPassword1"
+                    id="SignupInputPassword1"
                     onChange={(e) => {setPassword(e.target.value)}}
                     required
                   />

@@ -23,12 +23,16 @@ export const LoginUI = () => {
     const lc = NewLoginController(lu)
     
     try {
-      await lc.Login(formData)  // Controller function
+      var success = await lc.Login(formData)  // Controller function
     } catch (error) {
+      success = false 
       alert(error)
     }
 
     setLoading(false)
+    if (success) {
+      window.location.reload()
+    }
   }
 
   return (
