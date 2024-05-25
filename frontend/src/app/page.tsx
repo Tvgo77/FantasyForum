@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import {LoginUI, SignupUI} from "../ui"
 import React from 'react';
-import { GetServerSideProps } from "next";
+import Link from "next/link";
 
 export default function Page() {
   const headersList = headers()
@@ -13,7 +13,7 @@ export default function Page() {
       <LoginUI/>
       <SignupUI/>
       <div className="container">
-        {hasNoAuth? "Guest": ("User: " + uid)}
+        {hasNoAuth? "Guest": (<Link href={`/profile/${uid}`}>{"User: " + uid}</Link>)}
       </div>
     </div>
   );
