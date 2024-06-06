@@ -4,6 +4,7 @@ import { NewProfileController } from "./profile_controller";
 import * as domain from '@/domain'
 import * as helper from "@/helper"
 import { resourceLimits } from "worker_threads";
+import { error } from "console";
 
 
 describe("TestProfile", function() {
@@ -43,8 +44,11 @@ describe("TestProfile", function() {
         vi.spyOn(global, "fetch").mockResolvedValue(mockResponse)
 
         // test
-        const result = pc.FetchProfile("404")
-
+        try {
+            const result = await pc.FetchProfile("404")
+        } catch (e) {
+            expect(e).toBeInstanceOf(Error)
+        }
         // Assert
         expect(global.alert).toBeCalledWith(mockResponseBody.message)
     })
@@ -57,7 +61,7 @@ describe("TestProfile", function() {
 
         // Test
         const formData: domain.ProfileUIform = {name: "test user", bio: "I'm a test user", birthdayDate: "2000-05-06"}
-        const result = pc.UpdateProfile("6", formData)
+        const result = await pc.UpdateProfile("6", formData)
 
         // Assert
         expect(result).toBe(true)
@@ -71,7 +75,7 @@ describe("TestProfile", function() {
 
         // Test
         const formData: domain.ProfileUIform = {name: "test user", bio: "I'm a test user", birthdayDate: "2000-05-06"}
-        const result = pc.UpdateProfile("1", formData)
+        const result = await pc.UpdateProfile("1", formData)
 
         // Assert
         expect(result).toBe(false)

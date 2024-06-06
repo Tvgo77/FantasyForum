@@ -1,7 +1,9 @@
 import { NewProfileController } from '@/controller/profile_controller';
 import { LoginUI, ProfileUI } from '@/ui';
+import * as domain from '@/domain';
 import { headers } from 'next/headers';
 import React from 'react';
+import { NewProfileUsecase } from '@/usecase/profile_usecase';
 
 export default async function Page({params}: {params: {uid: string}}) {
   const headersList = headers()
@@ -18,7 +20,8 @@ export default async function Page({params}: {params: {uid: string}}) {
   }
 
   // Fetch profile data
-  const pc = NewProfileController()
+  const pu: domain.ProfileUsecase = NewProfileUsecase()
+  const pc = NewProfileController(pu)
   try {
     var formData = await pc.FetchProfile(params.uid)
   } catch (e) {
