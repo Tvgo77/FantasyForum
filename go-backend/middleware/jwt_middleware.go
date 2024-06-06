@@ -24,9 +24,9 @@ func NewJWTmiddleware(env *setup.Env) *JWTmiddleware {
 
 func NewJWTuidToken(user *domain.User, secret string) (string, error) {
 	myClaims := jwt.RegisteredClaims{
-		Issuer: "fantasyforum",
-		Subject: fmt.Sprintf("%d", user.ID),
-		IssuedAt: jwt.NewNumericDate(time.Now()),
+		Issuer:    "fantasyforum",
+		Subject:   fmt.Sprintf("%d", user.ID),
+		IssuedAt:  jwt.NewNumericDate(time.Now()),
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
 		NotBefore: jwt.NewNumericDate(time.Now()),
 	}
@@ -38,11 +38,11 @@ func NewJWTuidToken(user *domain.User, secret string) (string, error) {
 // Return parsed token if verification success
 func VerifyToken(token string, secret []byte) (*jwt.Token, error) {
 	parsedToken, err := jwt.ParseWithClaims(
-		token, 
-		&jwt.RegisteredClaims{}, 
-		func (token *jwt.Token) (interface{}, error) {
+		token,
+		&jwt.RegisteredClaims{},
+		func(token *jwt.Token) (interface{}, error) {
 			return secret, nil
-		}, 
+		},
 		jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Name}),
 	)
 	return parsedToken, err
@@ -57,12 +57,12 @@ func (jm *JWTmiddleware) GinHandler(c *gin.Context) {
 	credential := c.Request.Header.Get("Authorization")
 	authFields := strings.Split(credential, " ") // []string{"bear", "<token>"}
 	if len(authFields) < 2 {
-		log.Fatal("Invalid Authorization field in header")
+		log.Print("Invalid Authorization field in header")
 		c.JSON(http.StatusUnauthorized, domain.ErrorResponse{Message: "Invalid Authorization field in header"})
 		c.Abort()
 		return
 	}
-	token := authFields[1]  // []string{"bear", "<token>"}
+	token := authFields[1] // []string{"bear", "<token>"}
 
 	// Verify token
 	// A simplest verifyFunc just need to return the secret used in signature
@@ -96,4 +96,3 @@ func (jm *JWTmiddleware) GinHandler(c *gin.Context) {
 
 	// After send response
 }
-
