@@ -2,6 +2,12 @@ import * as domain from '@/domain';
 
 
 class profileController {
+    public profileUsecase: domain.ProfileUsecase
+
+    constructor(pu: domain.ProfileUsecase) {
+        this.profileUsecase = pu
+    }
+
     public async FetchProfile(uid: string): Promise<domain.ProfileUIform> {
         // Fetch profile from backend
 
@@ -24,6 +30,6 @@ class profileController {
     }
 }
 
-export function NewProfileController(): profileController {
-    return new profileController()
+export function NewProfileController(pu: domain.ProfileUsecase ): profileController {
+    return new profileController(pu)
 }

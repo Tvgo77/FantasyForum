@@ -23,3 +23,7 @@ export type UpdateProfileResponse = {
     message: string
 }
 
+export interface ProfileUsecase {
+    GetToken: () => string
+}
+

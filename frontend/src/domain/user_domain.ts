@@ -4,7 +4,7 @@ export type RFC3339string = string
 export type Profile = {
     name: string
     bio: string
-    birthdaty: RFC3339string
+    birthday: RFC3339string
 }
 
 

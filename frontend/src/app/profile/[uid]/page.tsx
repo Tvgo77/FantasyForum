@@ -14,7 +14,7 @@ export default async function Page({params}: {params: {uid: string}}) {
         <div> Please Login </div>
         <LoginUI></LoginUI>
       </div>
-    )
+    ) 
   }
 
   // Fetch profile data
@@ -25,9 +25,12 @@ export default async function Page({params}: {params: {uid: string}}) {
     return <div> Fail to retrieve user profile </div>
   }
 
+  const uid_jwt = headersList.get("uid")
+  const isMyself = (uid_jwt == params.uid)
+
   return (
     <div className="container">
-      <ProfileUI formData={formData} uid={params.uid} ></ProfileUI>   
+      <ProfileUI formData={formData} uid={params.uid} isMyself={isMyself} ></ProfileUI>   
     </div>
   )
 }
