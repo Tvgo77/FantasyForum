@@ -36,8 +36,8 @@ class loginController {
         // Check Response format
     
         if (response.status != 200) {
-            try{domain.errorRespSchema.parse(data)} catch (e) {alert(errorBadResponse); return false}
-            alert((data as domain.errorResponse).message)
+            try{domain.ErrorRespSchema.parse(data)} catch (e) {alert(errorBadResponse); return false}
+            alert((data as domain.ErrorResponse).message)
             return false
         }
     

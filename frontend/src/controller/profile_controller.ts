@@ -2,7 +2,7 @@ import * as domain from '@/domain';
 import { errorBadResponse } from '@/helper';
 
 
-class profileController {
+export class ProfileController {
     public profileUsecase: domain.ProfileUsecase
 
     constructor(pu: domain.ProfileUsecase) {
@@ -52,7 +52,7 @@ class profileController {
             profile: {
                 name: formData.name,
                 bio: formData.bio,
-                birthday: formData.birthdayDate
+                birthday: formData.birthdayDate + "T00:00:00Z"
             }
         }
 
@@ -67,7 +67,8 @@ class profileController {
                 mode: "cors",
                 headers: {
                     "Authorization": "bear " + token
-                }
+                },
+                body: JSON.stringify(req)
             })
             data = await resp.json()
         } catch (e) {
@@ -86,6 +87,6 @@ class profileController {
     }
 }
 
-export function NewProfileController(pu: domain.ProfileUsecase ): profileController {
-    return new profileController(pu)
+export function NewProfileController(pu: domain.ProfileUsecase ): ProfileController {
+    return new ProfileController(pu)
 }

@@ -1,16 +1,18 @@
 import * as domain from '@/domain';
-import Cookies from 'js-cookie'
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 
 class profileUsecase {
+    public Token: string
+
+    constructor (t: string) {
+        this.Token = t
+    }
+
     public GetToken(): string {
-        const token = Cookies.get("token")
-        if (token) {
-            return token
-        }
-        return ""
+        return this.Token
     }
 }
 
-export function NewProfileUsecase(): domain.ProfileUsecase {
-    return new profileUsecase()
+export function NewProfileUsecase(t: string): domain.ProfileUsecase {
+    return new profileUsecase(t)
 }
