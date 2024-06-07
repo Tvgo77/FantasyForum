@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-export type errorResponse = {
+export type ErrorResponse = {
     message: string
 }
 
-export const errorRespSchema = z.object({
+export const ErrorRespSchema = z.object({
     message: z.string(),
 });
