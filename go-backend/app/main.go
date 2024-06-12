@@ -12,6 +12,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/redis/go-redis/v9"
 )
 
 func main() {
@@ -26,6 +27,12 @@ func main() {
 		log.Fatal(err)
 		return
 	}
+
+	rdb := redis.NewClient(&redis.Options{
+		Addr:	  "localhost:6379",
+		Password: "", // no password set
+		DB:		  0,  // use default DB
+	})
 
 	if env.TestMode {
 		tx := db.Begin()
@@ -60,6 +67,7 @@ func main() {
 	router.SignupRouterSetup(env, db, publicRouter)
 	router.LoginRouterSetup(env, db, publicRouter)
 	router.ProfileRouterSetup(env, db, privateRouter)
+	router.ThreadRouterSetup(env, db, rdb, publicRouter)
 
 	/* Run */
 	ginEngine.Run(":8080")

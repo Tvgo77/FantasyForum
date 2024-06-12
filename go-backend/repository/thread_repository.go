@@ -4,16 +4,19 @@ import (
 	"context"
 	"go-backend/domain"
 	"go-backend/setup"
+
+	"github.com/redis/go-redis/v9"
 )
 
 
 type threadRepository struct {
 	database domain.Database
+	cache *redis.Client
 	env *setup.Env
 }
 
-func NewThreadRepository(db domain.Database, env *setup.Env) domain.ThreadRepository {
-	return &threadRepository{database: db, env: env}
+func NewThreadRepository(db domain.Database, rdb *redis.Client, env *setup.Env) domain.ThreadRepository {
+	return &threadRepository{database: db, cache: rdb, env: env}
 }
 
 func (tr *threadRepository) Create(ctx context.Context, thread *domain.Thread) error {

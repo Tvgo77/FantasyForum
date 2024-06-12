@@ -16,6 +16,8 @@ func NewThreadUsecase(tr domain.ThreadRepository, env *setup.Env) domain.ThreadU
 }
 
 func (tu *threadUsecase) GetThreadByID(ctx context.Context, tid uint) (*domain.Thread, error) {
+	// conds := &domain.Thread{ID: tid}
+	// thread, err := tu.threadRepository.Fetch(ctx, conds)
 	return nil, nil
 }
 
