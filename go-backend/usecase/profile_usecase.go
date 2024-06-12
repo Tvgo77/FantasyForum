@@ -11,7 +11,7 @@ type profileUsecase struct {
 	env *setup.Env
 }
 
-func NewProfileUsecase(ur domain.UserRepository, env *setup.Env) *profileUsecase {
+func NewProfileUsecase(ur domain.UserRepository, env *setup.Env) domain.ProfileUsecase {
 	return &profileUsecase{
 		userRepository: ur,
 		env: env,

@@ -1,23 +1,8 @@
 package domain
 
-// GET
-type FetchPostsRequest struct {
-
-}
-
-type FetchPostsResponse struct {
-	Posts []Post  `json:"posts"`
-}
-
-// Post
-type CreatePostRequest struct {
-	Post Post  `json:"post"`
-}
-
-type CreatePostResponse struct {
-
-}
+import "context"
 
 type PostUsecase interface {
-	
+	GetPostsByThreadAndPage(ctx context.Context, tid uint, page uint) ([]Post, error)
+	CreatePost(ctx context.Context, post *Post) error
 }
