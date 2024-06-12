@@ -36,6 +36,8 @@ func main() {
 	/* Run database migration if set in env */
 	if env.RunMigration {
 		db.AutoMigrate(&domain.User{})
+		db.AutoMigrate(&domain.Thread{})
+		db.AutoMigrate(&domain.Post{})
 	}
 	
 	/* Setup router */
