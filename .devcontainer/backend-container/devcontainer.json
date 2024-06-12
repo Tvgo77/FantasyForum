@@ -9,7 +9,7 @@
 	// "features": {"ghcr.io/devcontainers/features/go:1": {}}
 
 	// For running other SQL playground on host
-	"forwardPorts": [5432],
+	"forwardPorts": [5432, 6379],
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -17,7 +17,8 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"golang.Go"
+				"golang.Go",
+				"cweijan.vscode-redis-client"
 			]
 		}
 	}
