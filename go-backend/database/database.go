@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"database/sql"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -104,6 +105,11 @@ func (p *postgresDB) FindOne(ctx context.Context, dest interface{}, conds interf
 // Old one should contain primary key field
 func (p *postgresDB) UpdateOne(ctx context.Context, old interface{}, new interface{}) error {
 	result := p.db.WithContext(ctx).Model(old).Updates(new)
+	return result.Error
+}
+
+func (p *postgresDB) IncreaseOne(ctx context.Context, old interface{}, column string, n int) error {
+	result := p.db.WithContext(ctx).Model(old).Update(column, gorm.Expr(column + " + ?", n))
 	return result.Error
 }
 

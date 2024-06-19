@@ -16,9 +16,13 @@ func NewPostUsecase(pr domain.PostRepository, env *setup.Env) domain.PostUsecase
 }
 
 func (pu *postUsecase) GetPostsByThreadAndPage(ctx context.Context, tid uint, page uint) ([]domain.Post, error) {
-	return nil, nil
+	// Check cache first
+	conds := &domain.Post{ThreadID: tid}
+	posts, err := pu.postRepository.FetchBatch(ctx, conds, pu.env.PostsPerPage, int(page) - 1)
+	return posts, err
 }
 
 func (pu *postUsecase) CreatePost(ctx context.Context, post *domain.Post) error {
-	return nil
+	err := pu.postRepository.Create(ctx, post)
+	return err
 }

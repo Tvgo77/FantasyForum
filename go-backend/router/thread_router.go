@@ -2,6 +2,7 @@ package router
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"go-backend/controller"
 	"go-backend/domain"
@@ -59,6 +60,8 @@ func updateHotThreads(tu domain.ThreadUsecase, pu domain.PostUsecase, rdb *redis
 
 	for i := range threads {
 		tid := threads[i].ID
+		key := fmt.Sprintf("page:%d", tid)
+		rdb.JSONSet(context.Background(), key, "$", "[]")  // Empty JSON list
 		postCount := threads[i].PostCount
 		pageCount := postCount/env.PostsPerPage + 1
 		for page := 1; page <= pageCount; page++ {
@@ -69,10 +72,13 @@ func updateHotThreads(tu domain.ThreadUsecase, pu domain.PostUsecase, rdb *redis
 			}
 
 			cacheResponse := &domain.FetchOneThreadResponse{Thread: threads[i], Posts: posts}
+			cacheResponseJSON, err := json.Marshal(cacheResponse)
+			if err != nil {
+				log.Println("Error: Fail to marshal to json")
+			}
 
 			// Store cached posts in redis
-			key := fmt.Sprintf("page:%d:%d", tid, page)
-			err = rdb.Set(context.Background(), key, cacheResponse, 0).Err()
+			err = rdb.JSONArrAppend(context.Background(), key, "$", cacheResponseJSON).Err()
 			if err != nil {
 				log.Println("Error: Fail to store cache")
 				return

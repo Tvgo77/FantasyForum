@@ -17,6 +17,6 @@ type Post struct {
 type PostRepository interface {
 	Create(context.Context, *Post) error
 	// Fetch(ctx context.Context, conds *Post) (*Post, error)
-	FetchBatch(ctx context.Context, conds *Post) ([]Post, error)
+	FetchBatch(ctx context.Context, conds *Post, batchSize int, batchIndex int) ([]Post, error)
 	Update(ctx context.Context, old *Post, new *Post) error
 }

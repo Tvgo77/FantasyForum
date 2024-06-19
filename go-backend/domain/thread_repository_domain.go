@@ -19,6 +19,7 @@ type Thread struct {
 type ThreadRepository interface {
 	Create(context.Context, *Thread) error
 	Fetch(ctx context.Context, conds *Thread) (*Thread, error)
-	FetchBatch(ctx context.Context, conds *Thread) ([]Thread, error)
+	FetchBatch(ctx context.Context, conds *Thread, batchSize int, batchIndex int) ([]Thread, error)
 	Update(ctx context.Context, old *Thread, new *Thread) error
+	Increase(ctx context.Context, old *Thread, column string, n int) error
 }

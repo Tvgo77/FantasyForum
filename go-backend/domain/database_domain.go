@@ -3,8 +3,8 @@ package domain
 import (
 	"context"
 
-
 	"database/sql"
+
 	"gorm.io/gorm"
 )
 
@@ -27,6 +27,7 @@ type Database interface {
 	InsertOne(context.Context, interface{}) (error)
 	FindOne(ctx context.Context, dest interface{}, cond interface{}) (error)
 	UpdateOne(ctx context.Context, old interface{}, new interface{}) (error)
+	IncreaseOne(ctx context.Context, old interface{}, column string, n int) error
 	DeleteOne(context.Context, interface{}) (error)
 	CountRows(context.Context, interface{}) (int, error)
 }
