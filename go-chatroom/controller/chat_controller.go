@@ -36,6 +36,4 @@ func (cc *chatController) ConnHandler(c *gin.Context) {
 	// Push connection to connection pool
 	userID := c.GetString("userID")
 	cc.connManager.AddConn(userID, conn)
-
-
 }

@@ -8,12 +8,16 @@ import (
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
-type MessageConsumer struct {
+type messageConsumer struct {
 	connManager domain.ConnManagerUsecase
 	env *setup.Env
 }
 
-func (mc *MessageConsumer) Run() {
+func NewMessageConsumer(cm domain.ConnManagerUsecase, env *setup.Env) *messageConsumer {
+	return &messageConsumer{connManager: cm, env: env}
+}
+
+func (mc *messageConsumer) Run() {
 	// Connect to Kafka 
 	consumer, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "localhost:9092",
@@ -25,7 +29,7 @@ func (mc *MessageConsumer) Run() {
 	}
 	defer consumer.Close()
 
-	err = consumer.Subscribe("myTopic", nil)
+	err = consumer.Subscribe("chatMessage", nil)
 	if err != nil {
 		panic(err)
 	}
